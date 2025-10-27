@@ -1,27 +1,27 @@
 'use client';
 import { useState } from 'react';
 
-export default function Counter() {
-    const [count, setCount] = useState(0);
-    const [addSales, setAddSales] = useState(0);
-    const [removeSales, setRemoveSales] = useState(0);
+export default function Counter({initialCount=0, initialStep=1}) {
+    const [count, setCount] = useState(initialCount);
+    const [step, setStep] = useState(initialStep);
+    const decrement = count - step >= 0;
 
     return (
-        <div>
-            <p aria-live='polite'>CURRENT SALES COUNT: <br />
+        <div className='counterDiv'>
+            <p aria-live='polite' className='salesP'>CURRENT SALES COUNT: <br />
             {count}</p>
 
             {/* Add */}
-            <div id='addDiv'>
+            <div className='addDiv'>
                 <label htmlFor="addInput">Add sales: </label>
-                <input id='addInput' value={addSales} onChange={(e) => setAddSales(Number(e.target.value))} type="number"/><br />
-                <button onClick={() => setCount(count + addSales)}>Add Sale</button><br />
+                <input id='addInput' value={step} onChange={(e) => setStep(Number(e.target.value)>0 ? Number(e.target.value):1)} type="number"/><br />
+                <button onClick={() => setCount(count + step)}>Add Sale</button><br />
             </div>
             {/* Remove */}
-            <div id='removeDiv'>
+            <div className='removeDiv'>
                 <label htmlFor="removeInput">Remove sales: </label>
-                <input id='removeInput' value={removeSales} onChange={(e) => setRemoveSales(Number(e.target.value))} type="number"/><br />
-                <button onClick={() => setCount(count - removeSales)}>Remove Sale</button><br />
+                <input id='removeInput' value={step} onChange={(e) => setStep(Number(e.target.value))} type="number"/><br />
+                <button onClick={() => setCount(count - step)}>Remove Sale</button><br />
             </div>
 
             {/* Reset */}
